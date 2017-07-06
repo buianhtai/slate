@@ -1,189 +1,303 @@
 ---
-title: API Reference
+title: Bank Gateway API Reference
 
 language_tabs:
-  - shell
-  - ruby
-  - python
-  - javascript
+  - json
+
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
+  - <a href='#'>Bản quyền thuộc về MSERVICE</a>
 
 includes:
   - errors
 
 search: true
 ---
+  
+#	1.Giới thiệu chung 
+*	Thông tin dịch vụ
 
-# Introduction
+    Sử dụng RESTful API để gửi và nhận dữ liệu dưới dạng JSON. 
+	Dữ liệu request và response đều sẽ được mã hóa (Momo sẽ cung cấp cho đối tác key cần thiết )
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+*	Url kết nối (từ phía đối tác sang Momo )
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+    Url Public: https://payment.momo.vn:18185/<api url path >
+                <api url path> : xem chi tiết trong mục 2 cột Path.
 
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+*	Thiết lập giá trị trong header trong mỗi request như sau :
 
-# Authentication
+Key|Values
+----|------
+content-type |application/pgp-encrypted 
+accept |application/pgp-encrypted 
+partner-code |Momo sẽ cung cấp cho đối tác 
 
-> To authorize, use this code:
 
-```ruby
-require 'kittn'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+    
+# 2.Register
+**URL** : `/api/integrate/register`
 
-```python
-import kittn
+**Method** : `POST`
 
-api = kittn.authorize('meowmeowmeow')
-```
+**Request** : `JSON Message`
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+**Description** : `Dùng để đăng ký tài khoản MOMO `
 
-```javascript
-const kittn = require('kittn');
 
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
+## 2.1 Request Field
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
+   {
+     "phoneNumber": "?",
+     "fullName": "?",
+     "personalId": "?",
+     "issueDate": "?",
+     "issuePlace": "?",
+     "address": {
+       "Street": "?",
+       "Ward": "?",
+       "District": "?",
+       "Province": "?",
+       "Country": "?"
+     },
+     "accountNumber": "?",
+     "requestId": "?",
+     "requestTime": "?"
+   }
 ```
 
-This endpoint retrieves all kittens.
+Field     |Type   |Level|Require|Description
+----------|-------|-----|-------|----------------
+PhoneNumber|String|1|Y|Số điện thoại yêu cầu đăng ký map ví.
+Fullname|String|1|Y|Tên đầy đủ của chủ tài khoản
+PersonalId|String|1|Y|Số CMND của chủ tài khoản
+IssueDate|String|1|N|Ngày cấp , Định dạng  dd/MM/yyyy
+IssuePlace|String|1|N|Nơi cấp
+Address |Json|1|Y| Địa chỉ
+        | String   | 2| |Street	<String> : Địa chỉ nhà
+        | String   | 2| |Ward	<String> : Phường
+        | String   |2|  |District <String>:	Quận/Huyện
+        | String   |2|  |Province <String> :	Thành phố /tỉnh
+        | String   |2| |Country <String> : Quốc gia 
+AccountNumber|String|1|N|Số tài khoản ngân hàng
+RequestId |String|1|Y|Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
+RequestTime|String|1|Y|Ngày giờ thực hiện giao dịch chuẩn ISO 8601 : format yyyy-MM-dd'T'HH:mm:ss'Z'
 
-### HTTP Request
 
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
+## 2.2 Response Field
+```json
+       {
+              "requestId": "",
+              "message ": "",
+              "responseTime": "",
+              "resultCode": "",
+              "referenceId": "",
+              "token": ""
+       }
 ```
+Field|Date Type|Description
+---------- | ----------  | -------------
+Token|String|Chuỗi để xác định tài khoản khi sử dung lệnh checkFee
+ResultCode|Int|Mã trả về. Được mô tả như trong phần phụ lục.
+Message| String|Mô tả chi tiết về ResultCode trả về.
+ReferenceId|String|Mã giao dịch duy nhất trên hệ thống của M_Service.
+RequestId|String|Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
+ResponseTime|String|Ngày giờ giao dịch của Mservice:
+            |      |  Format:  yyyy-MM-dd'T'HH:mm:ss'Z'
+`
+# 3.UnRegister
+**URL** : `/api/integrate/unregister`
 
-```python
-import kittn
+**Method** : `POST`
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+**Request** : `JSON Message`
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
+**Description** : `Dùng để huỷ đăng ký ví`
 
-```javascript
-const kittn = require('kittn');
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
+## 3.1 Request Field
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "requestId": "?",
+  "phoneNumber": "?",
+  "requestTime": "?",
+  "token": "?"
 }
 ```
 
-This endpoint retrieves a specific kitten.
+Field     |Type   |Level|Require|Description
+----------|-------|-----|-------|----------------
+PhoneNumber|String|1|Y|Số điện thoại yêu cầu đăng ký map ví.
+Token|String|1|Y|Chuỗi định danh được cung cấp trong hàm register
+RequestId|String|1|Y|Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
+RequestTime|String|1|Y|Ngày giờ thực hiện giao dịch: format yyyy-MM-dd'T'HH:mm:ss'Z'
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+## 3.2 Response Field
+```json
+{
+  "requestId": "?",
+  "message ": "Webservice Error",
+  "responseTime": "2017-03-02 13:44:05",
+  "resultCode": "30",
+  "referenceId": "-1"
+}
+```
 
-### HTTP Request
+Field|Date Type|Description
+---------- | ----------  | -------------
+ResultCode|Int|Mã trả về. Được mô tả như trong phần phụ lục.
+Message| String|    Mô tả chi tiết về ResultCode trả về.
+ReferenceId|String| Mã giao dịch duy nhất trên hệ thống của M_Service.
+RequestId|String|   Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
+ResponseTime|String| Ngày giờ trả thông tin: format yyyy-MM-dd'T'HH:mm:ss'Z'
 
-`GET http://example.com/kittens/<ID>`
+# 4	CheckAgent
+**URL** : `/api/integrate/checkagent`
 
-### URL Parameters
+**Method** : `POST`
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+**Request** : `JSON Message`
 
+**Description** : `Dùng để kiểm tra thông tin ví`
+
+
+## 4.1 Request Field
+
+```json
+{
+  	   "requestId": "?",
+       "phoneNumber": "?",
+       "requestTime": "?"
+}
+
+```
+
+Field     |Type   |Level|Require|Description
+----------|-------|-----|-------|----------------
+PhoneNumber|String|1|Y|Số điện thoại yêu cầu đăng ký map ví.
+RequestId|String|1|Y|Mã giao dịch duy nhất trên hệ thống đối của Mservice
+RequestTime|String|1|Y|Ngày giờ thực hiện giao dịch: format yyyy-MM-dd'T'HH:mm:ss'Z'
+
+
+## 4.2 Response Field
+```json
+{
+  "requestId": "?",
+  "referenceId": "?",
+  "resultCode": ?,
+  "message": "?",
+  "personalId": "?",
+  "fullName": "?"
+}
+```
+
+Field|Date Type|Description
+---------- | ----------  | -------------
+ResultCode|Int|Mã trả về. Được mô tả như trong phần phụ lục.
+Message |String|Mô tả chi tiết về ResultCode trả về.
+ReferenceId|String|Mã giao dịch duy nhất trên hệ thống của M_Service.
+RequestId |String| Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
+PersonalId|String|Số CMND của chủ tài khoản
+FullName|String|Tên của chủ tài khoản
+
+
+
+# 5	CheckStatus
+**URL** : `/api/integrate/checkstatus`
+
+**Method** : `POST`
+
+**Request** : `JSON Message`
+
+**Description** : `Dùng để kiểm tra trạng thái giao dịch
+
+## 5.1 Request Field
+
+```json
+    {
+      "requestId": "?",
+      "phoneNumber": "?",
+      "requestTime": "?",
+      "checkedRequestId":"?"
+    }
+
+```
+
+
+Field     |Type   |Level|Require|Description
+----------|-------|-----|-------|----------------
+PhoneNumber|String|1|Y|Số điện thoại yêu cầu đăng ký map ví.
+RequestId|String|1|Y|Mã giao dịch duy nhất trên hệ thống đối của Mservice
+RequestTime|String|1|Y|Ngày giờ thực hiện giao dịch: format yyyy-MM-dd'T'HH:mm:ss'Z'
+CheckedRequestId|String|1|Y|RequestId của request cashin (chuyển tiền vào ví), 
+
+
+
+## 5.2 Response Field
+```json
+{
+  "requestId": "?",
+  "referenceId": "?",
+  "resultCode": ?,
+  "message": "?"
+}
+```
+
+Field|Date Type|Description
+---------- | ----------  | -------------
+ResultCode|Int|Mã trả về. Được mô tả như trong phần phụ lục.
+Message |String|Mô tả chi tiết về ResultCode trả về.
+ReferenceId|String|Mã giao dịch duy nhất trên hệ thống của M_Service.
+RequestId |String|Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
+
+
+# 6 CashIn
+**URL** : `/api/integrate/cashin`
+
+**Method** : `POST`
+
+**Request** : `JSON Message`
+
+**Description** : `Dùng để nạp tiền vào ví MOMO`
+
+
+## 6.1 Request Field
+
+```json
+    {
+      "requestId": "?",
+      "phoneNumber": "?",
+      "requestTime": "?",
+      "amount": ?
+    }
+```
+Field     |Type   |Level|Require|Description
+----------|-------|-----|-------|----------------
+PhoneNumber|String|1|Y| Số ví yêu cầu chuyển tiền đến.
+RequestId|String|1|Y| Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
+Amount |Long  |1|Y| Số tiền 
+RequestTime| String|1|Y|  Ngày giờ thực hiện giao dịch: format yyyy-MM-dd'T'HH:mm:ss'Z'
+
+## 6.2 Response Field
+```json
+
+{
+  "requestId": "?",
+  "referenceId": "?",
+  "resultCode": ?,
+  "message": "?"
+}
+```
+
+
+
+Field|Date Type|Description
+---------- | ----------  | -------------
+ResultCode|Int|Mã trả về. Được mô tả như trong phần phụ lục.
+Message |String|Mô tả chi tiết về ResultCode trả về.
+ReferenceId|String|Mã giao dịch duy nhất trên hệ thống của M_Service.
+RequestId|String|Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
+ResponseTime|String|Ngày giờ trả kết quả giao dịch: Format:  yyyy-MM-dd'T'HH:mm:ss'Z'
