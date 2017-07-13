@@ -13,8 +13,28 @@ includes:
 
 search: true
 ---
+
+# Momo Bank Gateway 
+## Technical Integration Document v2.0
+
+  Version |Date |Author |Description 
+  -----|-----------|--------------------|-------------------------------
+  1.0  |12-06-2017|Tranh |Created 
+  2.0  |23-06-2017|Tranh | 
+       |          |      |         -Đối ứng bank gateway mới. Sử dụng Restful API 
+       |          |      |         -Bỏ field commandType và checksum trong request và response
+       |          |      |         -BankTransId thành requestID
+       |          |      |         -Bỏ BankCode
+       |          |      |         -TransId đổi thành referenceId 
+       |          |      |         -Description đổi thành message 
+       |          |      |         -Cấu trúc json của register 
+       |          |      |         -Bỏ checkFee 
+       |          |      |         -Bỏ mục 4 vì không cần checkSum 
   
-#	1.Giới thiệu chung 
+
+  
+#	1. Giới thiệu chung 
+    
 *	Thông tin dịch vụ
 
     Sử dụng RESTful API để gửi và nhận dữ liệu dưới dạng JSON. 
@@ -50,21 +70,21 @@ partner-code |Momo sẽ cung cấp cho đối tác
 
 ```json
    {
-     "phoneNumber": "?",
-     "fullName": "?",
-     "personalId": "?",
-     "issueDate": "?",
-     "issuePlace": "?",
+     "phoneNumber": "<PhoneNumber>",
+     "fullName": "<Fullname>",
+     "personalId": "<PersonalId>",
+     "issueDate": "<IssueDate>",
+     "issuePlace": "<IssuePlace>",
      "address": {
-       "Street": "?",
-       "Ward": "?",
-       "District": "?",
-       "Province": "?",
-       "Country": "?"
+       "street": "<Street>",
+       "ward": "<Ward>",
+       "district": "<District>",
+       "province": "<Province>",
+       "country": "<Country>"
      },
-     "accountNumber": "?",
-     "requestId": "?",
-     "requestTime": "?"
+     "accountNumber": "<AccountNumber>",
+     "requestId": "<RequestId>",
+     "requestTime": "<RequestTime>"
    }
 ```
 
@@ -89,23 +109,24 @@ RequestTime|String|1|Y|Ngày giờ thực hiện giao dịch chuẩn ISO 8601 : 
 ## 2.2 Response Field
 ```json
        {
-              "requestId": "",
-              "message ": "",
-              "responseTime": "",
-              "resultCode": "",
-              "referenceId": "",
-              "token": ""
+              "requestId": "<RequestId>",
+              "referenceId": "<ReferenceId>",
+              "responseTime": "<ResponseTime>",
+              "resultCode": "<ResultCode>",
+              "message ": "<Message>",
+              "token": "<Token>"
        }
 ```
 Field|Date Type|Description
 ---------- | ----------  | -------------
-Token|String|Chuỗi để xác định tài khoản khi sử dung lệnh checkFee
-ResultCode|Int|Mã trả về. Được mô tả như trong phần phụ lục.
-Message| String|Mô tả chi tiết về ResultCode trả về.
-ReferenceId|String|Mã giao dịch duy nhất trên hệ thống của M_Service.
 RequestId|String|Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
+ReferenceId|String|Mã giao dịch duy nhất trên hệ thống của M_Service.
 ResponseTime|String|Ngày giờ giao dịch của Mservice:
             |      |  Format:  yyyy-MM-dd'T'HH:mm:ss'Z'
+ResultCode|Int|Mã trả về. Được mô tả như trong phần phụ lục.
+Message| String|Mô tả chi tiết về ResultCode trả về.
+Token|String|Chuỗi để xác định tài khoản khi sử dung lệnh checkFee
+
 `
 # 3.UnRegister
 **URL** : `/api/integrate/unregister`
@@ -121,38 +142,39 @@ ResponseTime|String|Ngày giờ giao dịch của Mservice:
 
 ```json
 {
-  "requestId": "?",
-  "phoneNumber": "?",
-  "requestTime": "?",
-  "token": "?"
+  "requestId": "<RequestId>",
+  "requestTime": "<RequestTime>",
+  "phoneNumber": "<PhoneNumber>",
+  "token": "<Token>"
 }
 ```
 
 Field     |Type   |Level|Require|Description
 ----------|-------|-----|-------|----------------
-PhoneNumber|String|1|Y|Số điện thoại yêu cầu đăng ký map ví.
-Token|String|1|Y|Chuỗi định danh được cung cấp trong hàm register
 RequestId|String|1|Y|Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
 RequestTime|String|1|Y|Ngày giờ thực hiện giao dịch: format yyyy-MM-dd'T'HH:mm:ss'Z'
+PhoneNumber|String|1|Y|Số điện thoại yêu cầu đăng ký map ví.
+Token|String|1|Y|Chuỗi định danh được cung cấp trong hàm register
+
 
 ## 3.2 Response Field
 ```json
 {
-  "requestId": "?",
-  "message ": "Webservice Error",
-  "responseTime": "2017-03-02 13:44:05",
-  "resultCode": "30",
-  "referenceId": "-1"
+  "requestId": "<RequestId>",
+  "responseTime": "<ResponseTime>",
+  "referenceId": "<ReferenceId>",
+  "resultCode": "<ResultCode>",
+  "message ": "<Message>"
 }
 ```
 
 Field|Date Type|Description
 ---------- | ----------  | -------------
-ResultCode|Int|Mã trả về. Được mô tả như trong phần phụ lục.
-Message| String|    Mô tả chi tiết về ResultCode trả về.
-ReferenceId|String| Mã giao dịch duy nhất trên hệ thống của M_Service.
 RequestId|String|   Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
 ResponseTime|String| Ngày giờ trả thông tin: format yyyy-MM-dd'T'HH:mm:ss'Z'
+ReferenceId|String| Mã giao dịch duy nhất trên hệ thống của M_Service.
+ResultCode|Int|Mã trả về. Được mô tả như trong phần phụ lục.
+Message| String|    Mô tả chi tiết về ResultCode trả về.
 
 # 4	CheckAgent
 **URL** : `/api/integrate/checkagent`
@@ -168,38 +190,40 @@ ResponseTime|String| Ngày giờ trả thông tin: format yyyy-MM-dd'T'HH:mm:ss'
 
 ```json
 {
-  	   "requestId": "?",
-       "phoneNumber": "?",
-       "requestTime": "?"
+  	   "requestId": "<RequestId>",
+       "requestTime": "<RequestTime>",
+       "phoneNumber": "<PhoneNumber>"
 }
 
 ```
 
 Field     |Type   |Level|Require|Description
 ----------|-------|-----|-------|----------------
-PhoneNumber|String|1|Y|Số điện thoại yêu cầu đăng ký map ví.
 RequestId|String|1|Y|Mã giao dịch duy nhất trên hệ thống đối của Mservice
 RequestTime|String|1|Y|Ngày giờ thực hiện giao dịch: format yyyy-MM-dd'T'HH:mm:ss'Z'
+PhoneNumber|String|1|Y|Số điện thoại yêu cầu đăng ký map ví.
 
 
 ## 4.2 Response Field
 ```json
 {
-  "requestId": "?",
-  "referenceId": "?",
-  "resultCode": ?,
-  "message": "?",
-  "personalId": "?",
-  "fullName": "?"
+  "requestId": "<RequestId>",
+  "referenceId": "<ReferenceId>",
+  "responseTime":"<ResponseTime>",
+  "resultCode": <ResultCode>,
+  "message": "<Message>",
+  "personalId": "<PersonalId>",
+  "fullName": "<FullName>"
 }
 ```
 
 Field|Date Type|Description
 ---------- | ----------  | -------------
+RequestId |String| Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
+ReferenceId|String|Mã giao dịch duy nhất trên hệ thống của M_Service.
+ResponseTime|String| Ngày giờ trả thông tin: format yyyy-MM-dd'T'HH:mm:ss'Z'
 ResultCode|Int|Mã trả về. Được mô tả như trong phần phụ lục.
 Message |String|Mô tả chi tiết về ResultCode trả về.
-ReferenceId|String|Mã giao dịch duy nhất trên hệ thống của M_Service.
-RequestId |String| Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
 PersonalId|String|Số CMND của chủ tài khoản
 FullName|String|Tên của chủ tài khoản
 
@@ -218,10 +242,10 @@ FullName|String|Tên của chủ tài khoản
 
 ```json
     {
-      "requestId": "?",
-      "phoneNumber": "?",
-      "requestTime": "?",
-      "checkedRequestId":"?"
+      "requestId": "<RequestId>",
+      "requestTime": "<RequestTime>",
+      "phoneNumber": "<PhoneNumber>",
+      "checkedRequestId":"<CheckedRequestId>"
     }
 
 ```
@@ -229,9 +253,9 @@ FullName|String|Tên của chủ tài khoản
 
 Field     |Type   |Level|Require|Description
 ----------|-------|-----|-------|----------------
-PhoneNumber|String|1|Y|Số điện thoại yêu cầu đăng ký map ví.
 RequestId|String|1|Y|Mã giao dịch duy nhất trên hệ thống đối của Mservice
 RequestTime|String|1|Y|Ngày giờ thực hiện giao dịch: format yyyy-MM-dd'T'HH:mm:ss'Z'
+PhoneNumber|String|1|Y|Số điện thoại yêu cầu đăng ký map ví.
 CheckedRequestId|String|1|Y|RequestId của request cashin (chuyển tiền vào ví), 
 
 
@@ -239,19 +263,21 @@ CheckedRequestId|String|1|Y|RequestId của request cashin (chuyển tiền vào
 ## 5.2 Response Field
 ```json
 {
-  "requestId": "?",
-  "referenceId": "?",
-  "resultCode": ?,
-  "message": "?"
+  "requestId": "<RequestId>",
+  "responseTime":"<ResponseTime>",
+  "referenceId": "<ReferenceId>",
+  "resultCode": <ResultCode>,
+  "message": "<Message>"
 }
 ```
 
 Field|Date Type|Description
 ---------- | ----------  | -------------
+RequestId |String|Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
+ResponseTime|String| Ngày giờ trả thông tin: format yyyy-MM-dd'T'HH:mm:ss'Z'
+ReferenceId|String|Mã giao dịch duy nhất trên hệ thống của M_Service.
 ResultCode|Int|Mã trả về. Được mô tả như trong phần phụ lục.
 Message |String|Mô tả chi tiết về ResultCode trả về.
-ReferenceId|String|Mã giao dịch duy nhất trên hệ thống của M_Service.
-RequestId |String|Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
 
 
 # 6 CashIn
@@ -268,27 +294,29 @@ RequestId |String|Mã giao dịch duy nhất trên hệ thống đối tác do �
 
 ```json
     {
-      "requestId": "?",
-      "phoneNumber": "?",
-      "requestTime": "?",
-      "amount": ?
+      "requestId": "<RequestId>",
+      "requestTime": "<RequestTime>",
+      "phoneNumber": "<PhoneNumber>",
+      "amount": <Amount>
     }
 ```
 Field     |Type   |Level|Require|Description
 ----------|-------|-----|-------|----------------
-PhoneNumber|String|1|Y| Số ví yêu cầu chuyển tiền đến.
 RequestId|String|1|Y| Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
-Amount |Long  |1|Y| Số tiền 
 RequestTime| String|1|Y|  Ngày giờ thực hiện giao dịch: format yyyy-MM-dd'T'HH:mm:ss'Z'
+PhoneNumber|String|1|Y| Số ví yêu cầu chuyển tiền đến.
+Amount |Long  |1|Y| Số tiền 
+
 
 ## 6.2 Response Field
 ```json
 
 {
-  "requestId": "?",
-  "referenceId": "?",
-  "resultCode": ?,
-  "message": "?"
+  "requestId": "<RequestId>",
+  "responseTime":"<ResponseTime>",
+  "referenceId": "<Message>",
+  "resultCode": <ResultCode>,
+  "message": "<Message>"
 }
 ```
 
@@ -296,8 +324,8 @@ RequestTime| String|1|Y|  Ngày giờ thực hiện giao dịch: format yyyy-MM-
 
 Field|Date Type|Description
 ---------- | ----------  | -------------
-ResultCode|Int|Mã trả về. Được mô tả như trong phần phụ lục.
-Message |String|Mô tả chi tiết về ResultCode trả về.
-ReferenceId|String|Mã giao dịch duy nhất trên hệ thống của M_Service.
 RequestId|String|Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra
 ResponseTime|String|Ngày giờ trả kết quả giao dịch: Format:  yyyy-MM-dd'T'HH:mm:ss'Z'
+ReferenceId|String|Mã giao dịch duy nhất trên hệ thống của M_Service.
+ResultCode|Int|Mã trả về. Được mô tả như trong phần phụ lục.
+Message |String|Mô tả chi tiết về ResultCode trả về.

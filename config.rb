@@ -47,3 +47,13 @@ end
 # Deploy Configuration
 # If you want Middleman to listen on a different port, you can set that below
 set :port, 4567
+
+activate :deploy do |deploy|
+  deploy.deploy_method   = :sftp
+  deploy.host            = '172.16.43.14'
+  deploy.port            = 22
+  deploy.path            = '/usr/local/doc_api/webroot'
+  # Optional Settings
+   deploy.user     = 'root' # no default
+   deploy.password = '123456' # no default
+end
