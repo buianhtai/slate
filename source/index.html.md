@@ -42,37 +42,40 @@ search: true
 	  **Ví dụ public key**
 	  
 ```json
-            -----BEGIN PGP MESSAGE-----
-              Version: PGP Personal Security 7.0.3
-              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
-              5g5K
-              =WRFH
-        -----END PGP MESSAGE----- 
+            -----BEGIN PGP PUBLIC KEY BLOCK-----
+            Version: Keybase OpenPGP v1.0.0
+            Comment: https://keybase.io/crypto
+            
+            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
+            =TKS4
+            -----END PGP PUBLIC KEY BLOCK-----
+
 ```
             
 *	Url kết nối (từ phía đối tác sang Momo )
@@ -86,6 +89,16 @@ Key|Values
 content-type |application/pgp-encrypted 
 accept |application/pgp-encrypted 
 partner-code |Momo sẽ cung cấp cho đối tác 
+
+*API URL
+
+Name|Method|Path
+-----|--------|--------
+register|POST|/api/integrate/register
+unregister|POST|/api/integrate/unregister
+checkstatus|POST|/api/integrate/checkstatus
+checkagent|POST|/api/integrate/checkagent
+cashin|POST|/api/integrate/cashin
 
 
 
@@ -159,7 +172,7 @@ ResponseTime|String|Ngày giờ giao dịch của Mservice:
             |      |  Format:  yyyy-MM-dd'T'HH:mm:ss'Z'
 ResultCode|Int|Mã trả về. Được mô tả như trong phần phụ lục.
 Message| String|Mô tả chi tiết về ResultCode trả về.
-Token|String|Chuỗi để xác định tài khoản khi sử dung lệnh checkFee
+Token|String|Chuỗi để xác định tài khoản,được sử dụng cho hàm 
 
 `
 # 3.UnRegister
@@ -270,7 +283,7 @@ FullName|String|Tên của chủ tài khoản
 
 **Request** : `JSON Message`
 
-**Description** : `Dùng để kiểm tra trạng thái giao dịch
+**Description** : `Dùng để kiểm tra trạng thái giao dịch (cashin/checkstatus/checkagent/unregister/register)
 
 ## 5.1 Request Field
 
@@ -279,7 +292,8 @@ FullName|String|Tên của chủ tài khoản
       "requestId": "<RequestId>",
       "requestTime": "<RequestTime>",
       "phoneNumber": "<PhoneNumber>",
-      "checkedRequestId":"<CheckedRequestId>"
+      "checkedRequestId":"<CheckedRequestId>",
+      "processName":["cashin","checkstatus","checkagent","unregister","register"]
     }
 
 ```
@@ -301,7 +315,11 @@ CheckedRequestId|String|1|Y|RequestId của request cashin (chuyển tiền vào
   "responseTime":"<ResponseTime>",
   "referenceId": "<ReferenceId>",
   "resultCode": <ResultCode>,
-  "message": "<Message>"
+  "message": "<Message>",
+  "data": {
+      "request": "<jsonRequest>",
+      "response": "<JsonResponse>"
+    }
 }
 ```
 
@@ -312,6 +330,10 @@ ResponseTime|String| Ngày giờ trả thông tin: format yyyy-MM-dd'T'HH:mm:ss'
 ReferenceId|String|Mã giao dịch duy nhất trên hệ thống của M_Service.
 ResultCode|Int|Mã trả về. Được mô tả như trong phần phụ lục.
 Message |String|Mô tả chi tiết về ResultCode trả về.
+Data |Json |
+     | Request   |Json request của process được kiểm tra
+     | Response  |Json response của process được kiểm tra
+
 
 
 # 6 CashIn

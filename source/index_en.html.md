@@ -90,7 +90,15 @@ content-type |application/pgp-encrypted
 accept |application/pgp-encrypted 
 partner-code |Momo provide
 
+*API URL
 
+Name|Method|Path
+-----|--------|--------
+register|POST|/api/integrate/register
+unregister|POST|/api/integrate/unregister
+checkstatus|POST|/api/integrate/checkstatus
+checkagent|POST|/api/integrate/checkagent
+cashin|POST|/api/integrate/cashin
 
     
 # 2.Register
@@ -280,7 +288,8 @@ FullName|String|Account holder's name
       "requestId": "<RequestId>",
       "requestTime": "<RequestTime>",
       "phoneNumber": "<PhoneNumber>",
-      "checkedRequestId":"<CheckedRequestId>"
+      "checkedRequestId":"<CheckedRequestId>",
+      "processName":["cashin","checkstatus","checkagent","unregister","register"]
     }
 
 ```
@@ -302,7 +311,11 @@ CheckedRequestId|String|1|Y|RequestId của request cashin (chuyển tiền vào
   "responseTime":"<ResponseTime>",
   "referenceId": "<ReferenceId>",
   "resultCode": <ResultCode>,
-  "message": "<Message>"
+  "message": "<Message>",
+  "data": {
+      "request": "<jsonRequest>",
+      "response": "<JsonResponse>"
+    }
 }
 ```
 
