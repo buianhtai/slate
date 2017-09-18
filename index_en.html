@@ -200,7 +200,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;json&quot;]">
+  <body class="index_en" data-languages="[&quot;json&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -219,7 +219,7 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Bản quyền thuộc về MSERVICE</a></li>
+            <li><a href='#'>Copyright MSERVICE</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -253,110 +253,112 @@
 <td></td>
 <td></td>
 <td></td>
-<td>-Đối ứng bank gateway mới. Sử dụng Restful API</td>
+<td>-Convert SOAP webservice to REST webservice</td>
 </tr>
 <tr>
 <td></td>
 <td></td>
 <td></td>
-<td>-Bỏ field commandType và checksum trong request và response</td>
+<td>-Remove  field <em>commandType</em>, <em>checksum</em> in  request và response</td>
 </tr>
 <tr>
 <td></td>
 <td></td>
 <td></td>
-<td>-BankTransId thành requestID</td>
+<td>-Change <em>BankTransId</em> to <em>requestID</em></td>
 </tr>
 <tr>
 <td></td>
 <td></td>
 <td></td>
-<td>-Bỏ BankCode</td>
+<td>-Remove <em>BankCode</em> field</td>
 </tr>
 <tr>
 <td></td>
 <td></td>
 <td></td>
-<td>-TransId đổi thành referenceId</td>
+<td>-Change <em>TransId</em> to <em>referenceId</em></td>
 </tr>
 <tr>
 <td></td>
 <td></td>
 <td></td>
-<td>-Description đổi thành message</td>
+<td>-Change <em>Description</em> to  <em>message</em></td>
 </tr>
 <tr>
 <td></td>
 <td></td>
 <td></td>
-<td>-Cấu trúc json của register</td>
+<td>-Restructure address JSON</td>
 </tr>
 <tr>
 <td></td>
 <td></td>
 <td></td>
-<td>-Bỏ checkFee</td>
+<td>-Remove <em>checkFee</em> field</td>
 </tr>
 <tr>
 <td></td>
 <td></td>
 <td></td>
-<td>-Bỏ mục 4 vì không cần checkSum</td>
+<td>-Remove 4th topic as not require <em>checksum</em></td>
 </tr>
 </tbody></table>
 
-<h1 id="1-gi-i-thi-u-chung">1. Giới thiệu chung</h1>
+<h1 id="1-introducion">1. Introducion</h1>
 
 <ul>
-<li><p>Thông tin dịch vụ</p>
+<li><p>Service information</p>
 
 <ul>
-<li>Sử dụng RESTful API để gửi và nhận dữ liệu dưới dạng JSON. </li>
-<li>Dữ liệu request và response đều sẽ được mã hóa (Momo sẽ cung cấp cho đối tác key cần thiết )</li>
+<li>MOMO provide API for partner integrate online payment .</li>
+<li>Use RESTful web service to send and receive data as JSON. </li>
+<li>The entire request and response is encrypted using the PGP encryption software to send 
+(encrypt and sign) and receive (decrypt) (MOMO and partner must provide public key )</li>
 </ul>
 
-<p><strong>Ví dụ public key</strong></p></li>
+<p><strong>Example public key</strong></p></li>
 </ul>
-<pre class="highlight json tab-json"><code><span class="w">            </span><span class="err">-----BEGIN</span><span class="w"> </span><span class="err">PGP</span><span class="w"> </span><span class="err">PUBLIC</span><span class="w"> </span><span class="err">KEY</span><span class="w"> </span><span class="err">BLOCK-----</span><span class="w">
-            </span><span class="err">Version</span><span class="p">:</span><span class="w"> </span><span class="err">Keybase</span><span class="w"> </span><span class="err">OpenPGP</span><span class="w"> </span><span class="err">v</span><span class="mf">1.0</span><span class="err">.</span><span class="mi">0</span><span class="w">
-            </span><span class="err">Comment</span><span class="p">:</span><span class="w"> </span><span class="err">https</span><span class="p">:</span><span class="err">//keybase.io/crypto</span><span class="w">
-
-            </span><span class="err">xo</span><span class="mi">0</span><span class="err">EWWwpYQEEAMy</span><span class="mi">9</span><span class="err">ZPyKJQkW</span><span class="mi">1</span><span class="err">hAsdrPF</span><span class="mi">5</span><span class="err">TEsewLDwf</span><span class="mi">4</span><span class="err">apIiARSfWkKPwzboOVYip</span><span class="w">
-            </span><span class="err">SukKZyg</span><span class="mi">8</span><span class="err">zmAyvaxyAJpEf</span><span class="mi">8</span><span class="err">fPV</span><span class="mi">6</span><span class="err">xgfyoYHSqpfXPimp</span><span class="mi">7</span><span class="err">oiuSOMZdho</span><span class="mi">5</span><span class="err">XRaWkotZqH</span><span class="w">
-            </span><span class="err">fTxOfwWdrPDgDAFc</span><span class="mi">9</span><span class="err">Ns</span><span class="mi">3</span><span class="err">qGQIxoEU</span><span class="mi">6</span><span class="err">U</span><span class="mi">1</span><span class="err">emc</span><span class="mi">9</span><span class="err">tlL</span><span class="mi">90</span><span class="err">j</span><span class="mi">0</span><span class="err">QF+</span><span class="mi">1</span><span class="err">CVmx</span><span class="mi">1</span><span class="err">Tkc</span><span class="mi">8</span><span class="err">bABEBAAHN</span><span class="w">
-            </span><span class="err">I</span><span class="mi">1</span><span class="err">TDoGkgQsO</span><span class="mi">5</span><span class="err">aSA</span><span class="mi">8</span><span class="err">dGFpLmJ</span><span class="mi">1</span><span class="err">aUBtc</span><span class="mi">2</span><span class="err">VydmljZS</span><span class="mi">5</span><span class="err">jb</span><span class="mi">20</span><span class="err">udm</span><span class="mi">4</span><span class="err">+wq</span><span class="mi">0</span><span class="err">EEwEKABcFAlls</span><span class="w">
-            </span><span class="err">KWECGy</span><span class="mi">8</span><span class="err">DCwkHAxUKCAIeAQIXgAAKCRDK</span><span class="mi">4</span><span class="err">twUsWEUqz</span><span class="mi">6</span><span class="err">JBACsxqKDJ</span><span class="mi">2</span><span class="err">HqVFaSGFXo</span><span class="w">
-            </span><span class="err">fS</span><span class="mi">9</span><span class="err">UyqL</span><span class="mi">4</span><span class="err">NOAWONaBdHBQutepiiUidAGO</span><span class="mi">8</span><span class="err">jX</span><span class="mi">8</span><span class="err">zDt</span><span class="mi">66</span><span class="err">hIxls</span><span class="mi">1</span><span class="err">xg+ehf</span><span class="mi">0</span><span class="err">iyuZWbvp</span><span class="mi">0</span><span class="err">s</span><span class="w">
-            </span><span class="err">SfS</span><span class="mi">9</span><span class="err">t</span><span class="mi">2</span><span class="err">PohlrKVM</span><span class="mi">7</span><span class="err">iTItzYs</span><span class="mi">5</span><span class="err">Y/CEw</span><span class="mi">5</span><span class="err">a</span><span class="mi">90</span><span class="err">YbjFUf</span><span class="mi">2</span><span class="err">FcalxrW++Kua</span><span class="mi">8</span><span class="err">/mNPoXD</span><span class="mi">1</span><span class="err">yFvg</span><span class="w">
-            </span><span class="err">DdYOrRwUmZAuLNVjHZ</span><span class="mi">8</span><span class="err">hxSsg/M</span><span class="mi">6</span><span class="err">NBFlsKWEBBAC</span><span class="mi">74</span><span class="err">UBo</span><span class="mi">3</span><span class="err">JWoltyX/G</span><span class="mi">2</span><span class="err">elUzsF</span><span class="mi">9</span><span class="err">kG</span><span class="w">
-            </span><span class="err">EW</span><span class="mi">7</span><span class="err">bRVUCgCoVjQ</span><span class="mi">6</span><span class="err">h/PNpuj</span><span class="mi">54</span><span class="err">N</span><span class="mi">1</span><span class="err">rURk</span><span class="mi">8</span><span class="err">X</span><span class="mi">5</span><span class="err">b</span><span class="mi">8</span><span class="err">lgVxsKBt</span><span class="mi">0</span><span class="err">XBS</span><span class="mi">1</span><span class="err">s</span><span class="mi">40</span><span class="err">eOfwjZc+W</span><span class="mi">8</span><span class="err">NL</span><span class="mi">0</span><span class="w">
-            </span><span class="err">GR</span><span class="mi">5</span><span class="err">F</span><span class="mi">42</span><span class="err">+rP</span><span class="mi">38</span><span class="err">IiIWKfmHfyDfE+</span><span class="mi">2</span><span class="err">e</span><span class="mi">1</span><span class="err">auQaDUfOTkxM</span><span class="mi">7</span><span class="err">BvR</span><span class="mi">96</span><span class="err">rbQM</span><span class="mi">0</span><span class="err">ywyHzvgZrtZ</span><span class="mi">3</span><span class="err">z</span><span class="w">
-            </span><span class="err">YqBJIHCjuep/</span><span class="mi">37</span><span class="err">YK</span><span class="mi">7</span><span class="err">wARAQABwsCDBBgBCgAPBQJZbClhBQkPCZwAAhsuAKgJEMri</span><span class="w">
-            </span><span class="mi">3</span><span class="err">BSxYRSrnSAEGQEKAAYFAllsKWEACgkQBgldq</span><span class="mi">0</span><span class="err">Ryz</span><span class="mi">2</span><span class="err">NzCAQAmJgyDee</span><span class="mi">5</span><span class="err">Q</span><span class="mi">3</span><span class="err">QUGikF</span><span class="w">
-            </span><span class="err">wO</span><span class="mi">9</span><span class="err">oqFv</span><span class="mi">5</span><span class="err">RCs</span><span class="mi">8</span><span class="err">/gsMB/nXV</span><span class="mi">9</span><span class="err">Jc</span><span class="mi">5</span><span class="err">mPStS</span><span class="mi">0</span><span class="err">YSIA+V</span><span class="mi">3</span><span class="err">dVFx</span><span class="mi">2</span><span class="err">pi</span><span class="mi">6</span><span class="err">c</span><span class="mi">5</span><span class="err">QRZLdkNUDG</span><span class="mi">1</span><span class="err">oBPVD</span><span class="w">
-            </span><span class="err">mjuiW</span><span class="mi">41</span><span class="err">LYYwJI+B</span><span class="mi">4</span><span class="err">v</span><span class="mi">82</span><span class="err">PJ</span><span class="mi">1</span><span class="err">cOWJsw+</span><span class="mi">39</span><span class="err">/</span><span class="mi">6</span><span class="err">QCq/</span><span class="mi">5</span><span class="err">HK</span><span class="mi">0</span><span class="err">n</span><span class="mi">9</span><span class="err">W</span><span class="mi">8</span><span class="err">bM</span><span class="mi">1</span><span class="err">tZPxTjWb</span><span class="mi">6</span><span class="err">Zwrd</span><span class="mi">3</span><span class="err">KX</span><span class="w">
-            </span><span class="err">dDBKapyOzQnAOwOchsNQOXR+clI</span><span class="mi">3</span><span class="err">vgQAoI</span><span class="mi">5</span><span class="err">heXgKgTXqxAP/</span><span class="mi">0</span><span class="err">fWoEL</span><span class="mi">5</span><span class="err">oOyP</span><span class="mi">9</span><span class="err">L</span><span class="mi">5</span><span class="err">CP</span><span class="w">
-            </span><span class="err">Mt</span><span class="mi">2</span><span class="err">vdXg+hQR</span><span class="mi">40</span><span class="err">GhpEs</span><span class="mi">4</span><span class="err">GDpPeaLe</span><span class="mi">6</span><span class="err">WmWtP</span><span class="mi">6</span><span class="err">ba</span><span class="mi">0</span><span class="err">QIOeXXQ</span><span class="mi">3</span><span class="err">w</span><span class="mi">9</span><span class="err">V</span><span class="mi">9</span><span class="err">dnpm</span><span class="mi">73</span><span class="err">EXcxNGEyg</span><span class="w">
-            </span><span class="err">W</span><span class="mi">5</span><span class="err">DSe</span><span class="mi">9</span><span class="err">CNetMmx</span><span class="mi">5</span><span class="err">PCjYE</span><span class="mi">45</span><span class="err">ghngWwIAzBo+</span><span class="mi">5</span><span class="err">Tqs</span><span class="mi">9</span><span class="err">bqhbhhw</span><span class="mi">4</span><span class="err">j</span><span class="mi">6</span><span class="err">Wh</span><span class="mi">6</span><span class="err">WR</span><span class="mi">2</span><span class="err">Thta</span><span class="mi">6</span><span class="err">GovCQ</span><span class="w">
-            </span><span class="err">atonqyNhTlTOjQRZbClhAQQAqHXCR</span><span class="mi">4</span><span class="err">IJMRXAMEkenAzHlrlx</span><span class="mi">8</span><span class="err">SWUFLRv</span><span class="mi">3</span><span class="err">btzlLnk</span><span class="w">
-            </span><span class="err">kT</span><span class="mi">05</span><span class="err">x/UPbl</span><span class="mi">1</span><span class="err">hLivYm</span><span class="mi">6</span><span class="err">er+zMjkY</span><span class="mi">7</span><span class="err">zjIsCk</span><span class="mi">0</span><span class="err">fTCpZGxoJUYvFtfGhJVyXpzAIxdnkR</span><span class="w">
-            </span><span class="err">NAld</span><span class="mi">4</span><span class="err">X</span><span class="mi">0</span><span class="err">KfmZgfVhSuhSbJyK</span><span class="mi">7</span><span class="err">SXLzLlTHuAt</span><span class="mi">6</span><span class="err">KwVuTk</span><span class="mi">9</span><span class="err">ebgrihWApYK</span><span class="mi">8</span><span class="err">nWieykhMl</span><span class="w">
-            </span><span class="err">zfMAEQEAAcLAgwQYAQoADwUCWWwpYQUJDwmcAAIbLgCoCRDK</span><span class="mi">4</span><span class="err">twUsWEUq</span><span class="mi">50</span><span class="err">gBBkB</span><span class="w">
-            </span><span class="err">CgAGBQJZbClhAAoJEMJT</span><span class="mi">6</span><span class="err">F</span><span class="mi">3</span><span class="err">mKJYGrJMD/Rg</span><span class="mi">9</span><span class="err">Mf</span><span class="mi">1</span><span class="err">XAtFMfa/QAUMDTH</span><span class="mi">0</span><span class="err">b</span><span class="mi">8</span><span class="err">+ahovtU</span><span class="w">
-            </span><span class="err">GABloSKffJP</span><span class="mi">8</span><span class="err">JEXx+ZJnV</span><span class="mi">8</span><span class="err">W</span><span class="mi">5</span><span class="err">TpvbHXUsxJZTL</span><span class="mi">1</span><span class="err">IzjPfJDUkRXDTbTJ</span><span class="mi">3</span><span class="err">HG</span><span class="mi">6</span><span class="err">mVM+Ey</span><span class="w">
-            </span><span class="mi">5</span><span class="err">ZrFFSxjBa</span><span class="mi">8</span><span class="err">wXc</span><span class="mi">0</span><span class="err">U</span><span class="mi">8</span><span class="err">TH</span><span class="mi">3</span><span class="err">CMBM</span><span class="mi">76</span><span class="err">pqqmlu</span><span class="mi">71</span><span class="err">wOldFC</span><span class="mi">4</span><span class="err">g</span><span class="mi">8</span><span class="err">TQGOTvw/i/V</span><span class="mi">4</span><span class="err">dqvFPPYUZ</span><span class="w">
-            </span><span class="err">jppirUgKMl</span><span class="mi">6</span><span class="err">z/LQEAMigdVPO</span><span class="mi">6</span><span class="err">hdyHHrNEGDxNgCKd+</span><span class="mi">8</span><span class="err">A</span><span class="mi">51</span><span class="err">b</span><span class="mi">2</span><span class="err">kMr</span><span class="mi">9</span><span class="err">CDqK+agwIOmP</span><span class="w">
-            </span><span class="err">vDbFywW</span><span class="mi">2</span><span class="err">g</span><span class="mi">5</span><span class="err">eCsmSV</span><span class="mi">4</span><span class="err">+</span><span class="mi">5</span><span class="err">hP</span><span class="mi">7</span><span class="err">Lzxgvqs</span><span class="mi">7</span><span class="err">sbnwu</span><span class="mi">3</span><span class="err">rV+Q</span><span class="mi">9</span><span class="err">+AOVaGzVxbf/ZTbb</span><span class="mi">5</span><span class="err">C</span><span class="mi">0</span><span class="err">XBEn</span><span class="w">
-            </span><span class="mi">9</span><span class="err">F</span><span class="mi">21</span><span class="err">eI</span><span class="mi">07</span><span class="err">Dcut</span><span class="mi">0</span><span class="err">klDXh</span><span class="mi">3</span><span class="err">fBWikNwL+fAyGHgZSf+qghKpe/j</span><span class="mi">1</span><span class="err">cyRznAWpuhWmH</span><span class="w">
-            </span><span class="err">=TKS</span><span class="mi">4</span><span class="w">
-            </span><span class="err">-----END</span><span class="w"> </span><span class="err">PGP</span><span class="w"> </span><span class="err">PUBLIC</span><span class="w"> </span><span class="err">KEY</span><span class="w"> </span><span class="err">BLOCK-----</span><span class="w">
-
+<pre class="highlight json tab-json"><code><span class="w">        </span><span class="err">-----BEGIN</span><span class="w"> </span><span class="err">PGP</span><span class="w"> </span><span class="err">MESSAGE-----</span><span class="w">
+          </span><span class="err">Version</span><span class="p">:</span><span class="w"> </span><span class="err">PGP</span><span class="w"> </span><span class="err">Personal</span><span class="w"> </span><span class="err">Security</span><span class="w"> </span><span class="mf">7.0</span><span class="err">.</span><span class="mi">3</span><span class="w">
+          </span><span class="err">qANQR</span><span class="mi">1</span><span class="err">DBwk</span><span class="mi">4</span><span class="err">DepqGz+tv</span><span class="mi">7</span><span class="err">awQC/sGOyvgkqLDEz</span><span class="mi">3</span><span class="err">QOc</span><span class="mi">4</span><span class="err">AkDuoTVl</span><span class="mi">9</span><span class="err">O</span><span class="mi">2</span><span class="err">y</span><span class="mi">7</span><span class="err">X</span><span class="mi">260</span><span class="err">NR</span><span class="mi">47</span><span class="w">
+          </span><span class="err">w</span><span class="mi">77</span><span class="err">OngPn</span><span class="mi">3</span><span class="err">z/</span><span class="mi">01</span><span class="err">yEpVDmkfrpdXKYmVhylICPg</span><span class="mi">1</span><span class="err">yvNYTyx</span><span class="mi">6</span><span class="err">EW</span><span class="mi">5</span><span class="err">LIOYt</span><span class="mi">1</span><span class="err">yuxLc+bjKS</span><span class="w">
+          </span><span class="err">piwrBdCxz</span><span class="mi">5</span><span class="err">+VT</span><span class="mi">8</span><span class="err">z</span><span class="mi">9</span><span class="err">IQz</span><span class="mi">7</span><span class="err">BNu</span><span class="mi">75</span><span class="err">GBP</span><span class="mi">5</span><span class="err">YMJyhZUgwFRDahPITz</span><span class="mi">0</span><span class="err">ziqL</span><span class="mi">9</span><span class="err">nBZeUX</span><span class="mi">27</span><span class="err">PGL</span><span class="w">
+          </span><span class="err">ZIc</span><span class="mi">32</span><span class="err">bm/</span><span class="mi">18</span><span class="err">zLwbLUZi</span><span class="mi">4</span><span class="err">CSPlnc</span><span class="mi">9</span><span class="err">PzXTeubwnsaC</span><span class="mi">0</span><span class="err">ZU</span><span class="mi">1</span><span class="err">PT+WokkhPRxPrgBHLU/rMj</span><span class="w">
+          </span><span class="err">zqOoh</span><span class="mi">2</span><span class="err">/dXGMUFY</span><span class="mi">7</span><span class="err">F</span><span class="mi">0</span><span class="err">zitGw</span><span class="mi">1</span><span class="err">jcj+jIf</span><span class="mi">49</span><span class="err">hpzPZ</span><span class="mi">5</span><span class="err">oWChZQjnQdREZgaRenx</span><span class="mi">3</span><span class="err">jRomol</span><span class="w">
+          </span><span class="err">BnT</span><span class="mi">0</span><span class="err">KgGk+cBp</span><span class="mi">8</span><span class="err">BIM</span><span class="mi">65</span><span class="err">DyoYdMKE</span><span class="mi">878</span><span class="err">n+ngTgIYUYkBLnYXfQv</span><span class="mi">9</span><span class="err">pgagPlQUgmMWSK/</span><span class="w">
+          </span><span class="err">zRkLS</span><span class="mi">3</span><span class="err">PpKJFTv</span><span class="mi">629</span><span class="err">iBXKKDeCteqD</span><span class="mi">4668</span><span class="err">TRty</span><span class="mi">3</span><span class="err">N</span><span class="mi">1</span><span class="err">sEXaFbpMZtaNWJvqlXpbbrAkO</span><span class="w">
+          </span><span class="err">rvKAxMq</span><span class="mi">9</span><span class="err">gpA+asf</span><span class="mi">6415</span><span class="err">NSX</span><span class="mi">29</span><span class="err">FT</span><span class="mi">4</span><span class="err">uv</span><span class="mi">4</span><span class="err">D</span><span class="mi">7</span><span class="err">FWF</span><span class="mi">3</span><span class="err">fp</span><span class="mi">2</span><span class="err">e</span><span class="mi">9</span><span class="err">it</span><span class="mi">8</span><span class="err">c</span><span class="mi">30</span><span class="err">//</span><span class="mi">9</span><span class="err">yKXQ</span><span class="mi">8</span><span class="err">pJb</span><span class="mi">0</span><span class="err">vfz</span><span class="mi">8</span><span class="err">B</span><span class="w">
+          </span><span class="err">vZCwIO</span><span class="mi">1</span><span class="err">me</span><span class="mi">371</span><span class="err">DScIwI</span><span class="mi">2</span><span class="err">D</span><span class="mi">8</span><span class="err">/</span><span class="mi">8</span><span class="err">EHzQMALxye</span><span class="mi">7</span><span class="err">O/tpDW</span><span class="mi">3</span><span class="err">BEU+NEqsHM</span><span class="mi">2</span><span class="err">nXdebKl</span><span class="mi">7</span><span class="err">mPk</span><span class="mi">8</span><span class="w">
+          </span><span class="mi">5</span><span class="err">voUyYZb</span><span class="mi">3</span><span class="err">vz</span><span class="mi">3</span><span class="err">PQHNJ+Jg</span><span class="mi">14</span><span class="err">KybK</span><span class="mi">8</span><span class="err">Jn</span><span class="mi">7</span><span class="err">KGji</span><span class="mi">19</span><span class="err">nHFgFtHN</span><span class="mi">0</span><span class="err">Qoz</span><span class="mi">4</span><span class="err">e</span><span class="mi">5</span><span class="err">aTlZtMksWDaX+</span><span class="w">
+          </span><span class="err">dT</span><span class="mi">6</span><span class="err">xfrKBo</span><span class="mi">5</span><span class="err">wOaQHGAX</span><span class="mi">3</span><span class="err">NHBAMTCqUoZajsGxsc+dQ/WB</span><span class="mi">7</span><span class="err">Qw</span><span class="mi">4</span><span class="err">qdZjmLtzj</span><span class="mi">35</span><span class="err">HcF</span><span class="mi">7</span><span class="err">s</span><span class="mi">0</span><span class="w">
+          </span><span class="mi">5</span><span class="err">RwOWZ</span><span class="mi">2</span><span class="err">F</span><span class="mi">9</span><span class="err">cqSj</span><span class="mi">0</span><span class="err">b</span><span class="mi">994</span><span class="err">llaT</span><span class="mi">9</span><span class="err">zo</span><span class="mi">2</span><span class="err">jXs</span><span class="mi">5</span><span class="err">ZM/fAZUBPsCp</span><span class="mi">55</span><span class="err">EFpe</span><span class="mi">52</span><span class="err">NFKJgyJY</span><span class="mi">92</span><span class="err">mYi</span><span class="mi">0</span><span class="w">
+          </span><span class="mi">1</span><span class="err">SK</span><span class="mi">26</span><span class="err">VMNMdHdp</span><span class="mi">4</span><span class="err">zHWZdNkhPPG</span><span class="mi">0</span><span class="err">EgDsz</span><span class="mi">1</span><span class="err">g+EtY</span><span class="mi">6</span><span class="err">YXWQYwIKPnQUivf</span><span class="mi">5</span><span class="err">mhDdhPmWK</span><span class="mi">6</span><span class="w">
+          </span><span class="err">sAR</span><span class="mi">4</span><span class="err">D</span><span class="mi">7</span><span class="err">s</span><span class="mi">2</span><span class="err">Vgqs</span><span class="mi">2</span><span class="err">gQnvuFxpkDMc</span><span class="mi">5</span><span class="err">l</span><span class="mi">2</span><span class="err">rMTAE</span><span class="mi">5</span><span class="err">+x</span><span class="mi">228</span><span class="err">SpMPau</span><span class="mi">27</span><span class="err">BDxBDKLw</span><span class="mi">1</span><span class="err">i</span><span class="mi">6</span><span class="err">ak</span><span class="mi">23</span><span class="err">C+</span><span class="w">
+          </span><span class="err">l</span><span class="mi">2</span><span class="err">qmiqQg</span><span class="mi">0</span><span class="err">qeSFy</span><span class="mi">2</span><span class="err">o</span><span class="mi">7</span><span class="err">+HmyKWCENl</span><span class="mi">2</span><span class="err">V</span><span class="mi">84</span><span class="err">N</span><span class="mi">8</span><span class="err">eLhoE+iyXj</span><span class="mi">5</span><span class="err">fL</span><span class="mi">2</span><span class="err">UvMlqVJePTT</span><span class="mi">76</span><span class="err">Rz</span><span class="mi">6</span><span class="err">p</span><span class="w">
+          </span><span class="err">+tD/</span><span class="mi">15</span><span class="err">JYZo/</span><span class="mi">8</span><span class="err">uAxIBivaB</span><span class="mi">7</span><span class="err">P</span><span class="mi">7</span><span class="err">k</span><span class="mi">2</span><span class="err">Bqu</span><span class="mi">0</span><span class="err">bmrCD</span><span class="mi">4</span><span class="err">wdSKOLzhScxAj</span><span class="mi">15</span><span class="err">Dtu</span><span class="mi">0</span><span class="err">kWgEKGs</span><span class="mi">80</span><span class="w">
+          </span><span class="err">VgTMu</span><span class="mi">2</span><span class="err">iQLtphN</span><span class="mi">7</span><span class="err">oObhWzUIf</span><span class="mi">9</span><span class="err">O</span><span class="mi">3</span><span class="err">MlqMnBCiOp</span><span class="mi">4</span><span class="err">VFGebnJcDvullUB</span><span class="mi">4</span><span class="err">OYZD</span><span class="mi">6</span><span class="err">ZLIecN</span><span class="w">
+          </span><span class="mi">8</span><span class="err">BsqsVlqawJbtWpmRf</span><span class="mi">8973</span><span class="err">Yg</span><span class="mi">2</span><span class="err">bicP</span><span class="mi">0</span><span class="err">ISCwFaoDvR</span><span class="mi">8</span><span class="err">C+wb</span><span class="mi">3</span><span class="err">h</span><span class="mi">9</span><span class="err">nJ</span><span class="mi">9</span><span class="err">EZeO/mZGjJweR</span><span class="w">
+          </span><span class="err">A</span><span class="mi">6</span><span class="err">yXK</span><span class="mi">7</span><span class="err">wyp</span><span class="mi">6</span><span class="err">JHnvACwFhUkTno</span><span class="mi">7</span><span class="err">nrdq</span><span class="mi">8</span><span class="err">cDaG</span><span class="mi">4</span><span class="err">ssolsUSKnON</span><span class="mi">87</span><span class="err">ycLFWq/mNs</span><span class="mi">9</span><span class="err">fhqzF</span><span class="w">
+          </span><span class="err">Y</span><span class="mi">3</span><span class="err">y</span><span class="mi">7</span><span class="err">Q</span><span class="mi">4</span><span class="err">f</span><span class="mi">7</span><span class="err">hA</span><span class="mi">4</span><span class="err">EL</span><span class="mi">83</span><span class="err">+bxc</span><span class="mi">4</span><span class="err">YGqzirWHeVXetZdft</span><span class="mi">018</span><span class="err">+</span><span class="mi">0</span><span class="err">Oz</span><span class="mi">2</span><span class="err">Au</span><span class="mi">8</span><span class="err">gRG</span><span class="mi">5</span><span class="err">AVd+DX+xlr</span><span class="mi">56</span><span class="w">
+          </span><span class="err">mJlkrlzYWG</span><span class="mi">7</span><span class="err">HuEl</span><span class="mi">8</span><span class="err">CRS</span><span class="mi">7</span><span class="err">rAZHgRAIV</span><span class="mi">3</span><span class="err">I</span><span class="mi">7</span><span class="err">WDeNEYyBQNt/MfzUQY</span><span class="mi">9</span><span class="err">+BmbtCsTlOnda</span><span class="w">
+          </span><span class="err">j</span><span class="mi">8</span><span class="err">IkiL</span><span class="mi">0</span><span class="err">QIW/</span><span class="mi">9</span><span class="err">ZyvifxpvzKGKhxdXoqJWVSXLKHGk</span><span class="mi">1</span><span class="err">qvY</span><span class="mi">9</span><span class="err">epgw</span><span class="mi">7</span><span class="err">QWk</span><span class="mi">15</span><span class="err">crlti</span><span class="mi">0</span><span class="err">Q</span><span class="mi">4</span><span class="err">+</span><span class="w">
+          </span><span class="err">aDXvNieN</span><span class="mi">9</span><span class="err">imk</span><span class="mi">3</span><span class="err">UNQe</span><span class="mi">2</span><span class="err">rncqzIKlbxasjparCKXiErQGFjldtTLrZcf</span><span class="mi">7</span><span class="err">KjNOJuVG</span><span class="mi">9</span><span class="err">J</span><span class="w">
+          </span><span class="err">HoOZC</span><span class="mi">39</span><span class="err">ur</span><span class="mi">8</span><span class="err">rkVrgWuSzrvzhpeQl</span><span class="mi">0</span><span class="err">VlmdviZpocErZYPtnDQGgA</span><span class="mi">3</span><span class="err">TbXX</span><span class="mi">4</span><span class="err">lXoMiM</span><span class="mi">1</span><span class="err">a</span><span class="w">
+          </span><span class="err">bOxTskUcgIBzN</span><span class="mi">2</span><span class="err">L</span><span class="mi">9</span><span class="err">nNfIhVaxJxMd</span><span class="mi">3260</span><span class="err">SpJxElJ</span><span class="mi">27</span><span class="err">V</span><span class="mi">6</span><span class="err">Be</span><span class="mi">97</span><span class="err">Q+YX</span><span class="mi">4</span><span class="err">TF</span><span class="mi">9</span><span class="err">xlH</span><span class="mi">4</span><span class="err">zWFM</span><span class="mi">3</span><span class="w">
+          </span><span class="err">NpGg</span><span class="mi">1</span><span class="err">iXWNRb</span><span class="mi">4</span><span class="err">VSwPE</span><span class="mi">2</span><span class="err">+ZEiKirrlMsgXxfZNvAy</span><span class="mi">3</span><span class="err">bAuSm</span><span class="mi">0</span><span class="err">b</span><span class="mi">1</span><span class="err">u</span><span class="mi">7</span><span class="err">Isa/Jjab</span><span class="mi">96</span><span class="err">DHff</span><span class="mi">6</span><span class="w">
+          </span><span class="mi">5</span><span class="err">g</span><span class="mi">5</span><span class="err">K</span><span class="w">
+          </span><span class="err">=WRFH</span><span class="w">
+    </span><span class="err">-----END</span><span class="w"> </span><span class="err">PGP</span><span class="w"> </span><span class="err">MESSAGE-----</span><span class="w"> 
 </span></code></pre>
 <ul>
-<li><p>Url kết nối (từ phía đối tác sang Momo )
--Url Public: https://payment.momo.vn:18185/<api url path >
-            <api url path> : xem chi tiết trong mục 2 cột Path.</p></li>
-<li><p>Thiết lập giá trị trong header trong mỗi request như sau :</p></li>
+<li><p>URL : </p>
+
+<ul>
+<li> Url Public: https://payment.momo.vn:18185/<api url path >
+        <api url path> :the below lists the standard methods that have a well-defined meaning for all resources and collections.</li>
+</ul></li>
+<li><p>Setting HTTP request headers :</p></li>
 </ul>
 
 <table><thead>
@@ -375,7 +377,7 @@
 </tr>
 <tr>
 <td>partner-code</td>
-<td>Momo sẽ cung cấp cho đối tác</td>
+<td>Momo provide</td>
 </tr>
 </tbody></table>
 
@@ -423,7 +425,7 @@
 
 <p><strong>Request</strong> : <code class="prettyprint">JSON Message</code></p>
 
-<p><strong>Description</strong> : <code class="prettyprint">Dùng để đăng ký tài khoản MOMO</code></p>
+<p><strong>Description</strong> : <code class="prettyprint">Allow register a MOMO wallet</code></p>
 
 <h2 id="2-1-request-field">2.1 Request Field</h2>
 <pre class="highlight json tab-json"><code><span class="w">   </span><span class="p">{</span><span class="w">
@@ -458,98 +460,98 @@
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Số điện thoại yêu cầu đăng ký map ví.</td>
+<td>Phone number requires registration map wallet.</td>
 </tr>
 <tr>
 <td>Fullname</td>
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Tên đầy đủ của chủ tài khoản</td>
+<td>The full name of the account holder</td>
 </tr>
 <tr>
 <td>PersonalId</td>
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Số CMND của chủ tài khoản</td>
+<td>ID number of account holder</td>
 </tr>
 <tr>
 <td>IssueDate</td>
 <td>String</td>
 <td>1</td>
 <td>N</td>
-<td>Ngày cấp , Định dạng  dd/MM/yyyy</td>
+<td>Date of issue of ID card,format  dd/MM/yyyy</td>
 </tr>
 <tr>
 <td>IssuePlace</td>
 <td>String</td>
 <td>1</td>
 <td>N</td>
-<td>Nơi cấp</td>
+<td>Place of issue of ID card</td>
 </tr>
 <tr>
 <td>Address</td>
 <td>Json</td>
 <td>1</td>
 <td>Y</td>
-<td>Địa chỉ</td>
+<td>Address of account holer</td>
 </tr>
 <tr>
 <td></td>
 <td>String</td>
 <td>2</td>
 <td></td>
-<td>Street <String> : Địa chỉ nhà</td>
+<td>Street <String> : Home address of the account holder.</td>
 </tr>
 <tr>
 <td></td>
 <td>String</td>
 <td>2</td>
 <td></td>
-<td>Ward   <String> : Phường</td>
+<td>Ward   <String> : ward</td>
 </tr>
 <tr>
 <td></td>
 <td>String</td>
 <td>2</td>
 <td></td>
-<td>District <String>: Quận/Huyện</td>
+<td>District <String>: District</td>
 </tr>
 <tr>
 <td></td>
 <td>String</td>
 <td>2</td>
 <td></td>
-<td>Province <String> :    Thành phố /tỉnh</td>
+<td>Province <String> :    Province</td>
 </tr>
 <tr>
 <td></td>
 <td>String</td>
 <td>2</td>
 <td></td>
-<td>Country <String> : Quốc gia</td>
+<td>Country <String> : Country</td>
 </tr>
 <tr>
 <td>AccountNumber</td>
 <td>String</td>
 <td>1</td>
 <td>N</td>
-<td>Số tài khoản ngân hàng</td>
+<td>Bank account number</td>
 </tr>
 <tr>
 <td>RequestId</td>
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra</td>
+<td>The unique transaction code generated by the partner</td>
 </tr>
 <tr>
 <td>RequestTime</td>
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Ngày giờ thực hiện giao dịch chuẩn ISO 8601 : format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
+<td>Date and time of transaction with  ISO 8601 : format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
 </tr>
 </tbody></table>
 
@@ -573,37 +575,32 @@
 <tr>
 <td>RequestId</td>
 <td>String</td>
-<td>Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra</td>
+<td>The unique transaction code generated by the partner</td>
 </tr>
 <tr>
 <td>ReferenceId</td>
 <td>String</td>
-<td>Mã giao dịch duy nhất trên hệ thống của M_Service.</td>
+<td>The unique transaction code on the M_Service system.</td>
 </tr>
 <tr>
 <td>ResponseTime</td>
 <td>String</td>
-<td>Ngày giờ giao dịch của Mservice:</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>Format:  yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
+<td>Response time : format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
 </tr>
 <tr>
 <td>ResultCode</td>
 <td>Int</td>
-<td>Mã trả về. Được mô tả như trong phần phụ lục.</td>
+<td>Return code described as an appendix.</td>
 </tr>
 <tr>
 <td>Message</td>
 <td>String</td>
-<td>Mô tả chi tiết về ResultCode trả về.</td>
+<td>Detailed description of the ResultCode returned.</td>
 </tr>
 <tr>
 <td>Token</td>
 <td>String</td>
-<td>Chuỗi để xác định tài khoản,được sử dụng cho hàm</td>
+<td>Character string used to identify the account when using with unregister method.</td>
 </tr>
 </tbody></table>
 
@@ -617,7 +614,7 @@
 
 <p><strong>Request</strong> : <code class="prettyprint">JSON Message</code></p>
 
-<p><strong>Description</strong> : <code class="prettyprint">Dùng để huỷ đăng ký ví</code></p>
+<p><strong>Description</strong> : <code class="prettyprint">Allow unregister a MOMO wallet</code></p>
 
 <h2 id="3-1-request-field">3.1 Request Field</h2>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -641,28 +638,28 @@
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra</td>
+<td>The unique transaction code generated by the partner</td>
 </tr>
 <tr>
 <td>RequestTime</td>
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Ngày giờ thực hiện giao dịch: format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
+<td>Date and time of transaction: format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
 </tr>
 <tr>
 <td>PhoneNumber</td>
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Số điện thoại yêu cầu đăng ký map ví.</td>
+<td>Phone number requires registration map wallet.</td>
 </tr>
 <tr>
 <td>Token</td>
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Chuỗi định danh được cung cấp trong hàm register</td>
+<td>The identifier string is provided in the register function.</td>
 </tr>
 </tbody></table>
 
@@ -685,27 +682,27 @@
 <tr>
 <td>RequestId</td>
 <td>String</td>
-<td>Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra</td>
+<td>The unique transaction code generated by the partner</td>
 </tr>
 <tr>
 <td>ResponseTime</td>
 <td>String</td>
-<td>Ngày giờ trả thông tin: format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
+<td>Response time : format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
 </tr>
 <tr>
 <td>ReferenceId</td>
 <td>String</td>
-<td>Mã giao dịch duy nhất trên hệ thống của M_Service.</td>
+<td>The unique transaction code on the M_Service system.</td>
 </tr>
 <tr>
 <td>ResultCode</td>
 <td>Int</td>
-<td>Mã trả về. Được mô tả như trong phần phụ lục.</td>
+<td>Return code described as an appendix.</td>
 </tr>
 <tr>
 <td>Message</td>
 <td>String</td>
-<td>Mô tả chi tiết về ResultCode trả về.</td>
+<td>Detailed description of the ResultCode returned.</td>
 </tr>
 </tbody></table>
 
@@ -717,7 +714,7 @@
 
 <p><strong>Request</strong> : <code class="prettyprint">JSON Message</code></p>
 
-<p><strong>Description</strong> : <code class="prettyprint">Dùng để kiểm tra thông tin ví</code></p>
+<p><strong>Description</strong> : <code class="prettyprint">Used to check wallet information</code></p>
 
 <h2 id="4-1-request-field">4.1 Request Field</h2>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -741,21 +738,21 @@
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Mã giao dịch duy nhất trên hệ thống đối của Mservice</td>
+<td>The unique transaction code generated by the partner</td>
 </tr>
 <tr>
 <td>RequestTime</td>
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Ngày giờ thực hiện giao dịch: format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
+<td>Date and time of transaction: format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
 </tr>
 <tr>
 <td>PhoneNumber</td>
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Số điện thoại yêu cầu đăng ký map ví.</td>
+<td>Phone number requires registration map wallet.</td>
 </tr>
 </tbody></table>
 
@@ -780,37 +777,37 @@
 <tr>
 <td>RequestId</td>
 <td>String</td>
-<td>Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra</td>
+<td>The unique transaction code generated by the partner</td>
 </tr>
 <tr>
 <td>ReferenceId</td>
 <td>String</td>
-<td>Mã giao dịch duy nhất trên hệ thống của M_Service.</td>
+<td>The unique transaction code on the M_Service system.</td>
 </tr>
 <tr>
 <td>ResponseTime</td>
 <td>String</td>
-<td>Ngày giờ trả thông tin: format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
+<td>Response time : format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
 </tr>
 <tr>
 <td>ResultCode</td>
 <td>Int</td>
-<td>Mã trả về. Được mô tả như trong phần phụ lục.</td>
+<td>Return code described as an appendix.</td>
 </tr>
 <tr>
 <td>Message</td>
 <td>String</td>
-<td>Mô tả chi tiết về ResultCode trả về.</td>
+<td>Detailed description of the ResultCode returned.</td>
 </tr>
 <tr>
 <td>PersonalId</td>
 <td>String</td>
-<td>Số CMND của chủ tài khoản</td>
+<td>ID number of account holder</td>
 </tr>
 <tr>
 <td>FullName</td>
 <td>String</td>
-<td>Tên của chủ tài khoản</td>
+<td>Account holder&rsquo;s name</td>
 </tr>
 </tbody></table>
 
@@ -822,7 +819,7 @@
 
 <p><strong>Request</strong> : <code class="prettyprint">JSON Message</code></p>
 
-<p><strong>Description</strong> : `Dùng để kiểm tra trạng thái giao dịch (cashin/checkstatus/checkagent/unregister/register)</p>
+<p><strong>Description</strong> : <code class="prettyprint">Used to check the status of the transaction</code></p>
 
 <h2 id="5-1-request-field">5.1 Request Field</h2>
 <pre class="highlight json tab-json"><code><span class="w">    </span><span class="p">{</span><span class="w">
@@ -830,7 +827,7 @@
       </span><span class="s2">"requestTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;RequestTime&gt;"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;PhoneNumber&gt;"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"checkedRequestId"</span><span class="p">:</span><span class="s2">"&lt;CheckedRequestId&gt;"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"processName"</span><span class="p">:[</span><span class="s2">"cashin"</span><span class="p">,</span><span class="s2">"checkstatus"</span><span class="p">,</span><span class="s2">"checkagent"</span><span class="p">,</span><span class="s2">"unregister"</span><span class="p">,</span><span class="s2">"register"</span><span class="p">]</span><span class="w">
+      </span><span class="s2">"checkedRequestId"</span><span class="p">:</span><span class="s2">"&lt;CheckedRequestId&gt;"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
@@ -848,21 +845,21 @@
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Mã giao dịch duy nhất trên hệ thống đối của Mservice</td>
+<td>The unique transaction code generated by the partner</td>
 </tr>
 <tr>
 <td>RequestTime</td>
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Ngày giờ thực hiện giao dịch: format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
+<td>Date and time of transaction: format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
 </tr>
 <tr>
 <td>PhoneNumber</td>
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Số điện thoại yêu cầu đăng ký map ví.</td>
+<td>Phone number requires registration map wallet.</td>
 </tr>
 <tr>
 <td>CheckedRequestId</td>
@@ -879,11 +876,7 @@
   </span><span class="s2">"responseTime"</span><span class="p">:</span><span class="s2">"&lt;ResponseTime&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"referenceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;ReferenceId&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"resultCode"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;ResultCode&gt;</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Message&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"request"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;jsonRequest&gt;"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"response"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;JsonResponse&gt;"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Message&gt;"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <table><thead>
@@ -896,27 +889,27 @@
 <tr>
 <td>RequestId</td>
 <td>String</td>
-<td>Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra</td>
+<td>The unique transaction code generated by the partner</td>
 </tr>
 <tr>
 <td>ResponseTime</td>
 <td>String</td>
-<td>Ngày giờ trả thông tin: format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
+<td>Response time : format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
 </tr>
 <tr>
 <td>ReferenceId</td>
 <td>String</td>
-<td>Mã giao dịch duy nhất trên hệ thống của M_Service.</td>
+<td>The unique transaction code on the M_Service system.</td>
 </tr>
 <tr>
 <td>ResultCode</td>
 <td>Int</td>
-<td>Mã trả về. Được mô tả như trong phần phụ lục.</td>
+<td>Return code described as an appendix.</td>
 </tr>
 <tr>
 <td>Message</td>
 <td>String</td>
-<td>Mô tả chi tiết về ResultCode trả về.</td>
+<td>Description .</td>
 </tr>
 </tbody></table>
 
@@ -928,7 +921,7 @@
 
 <p><strong>Request</strong> : <code class="prettyprint">JSON Message</code></p>
 
-<p><strong>Description</strong> : <code class="prettyprint">Dùng để nạp tiền vào ví MOMO</code></p>
+<p><strong>Description</strong> : <code class="prettyprint">Allow customer receive money from Bank</code></p>
 
 <h2 id="6-1-request-field">6.1 Request Field</h2>
 <pre class="highlight json tab-json"><code><span class="w">    </span><span class="p">{</span><span class="w">
@@ -952,28 +945,28 @@
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra</td>
+<td>Unique Request Identifier from partner</td>
 </tr>
 <tr>
 <td>RequestTime</td>
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Ngày giờ thực hiện giao dịch: format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
+<td>Transaction time : format yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
 </tr>
 <tr>
 <td>PhoneNumber</td>
 <td>String</td>
 <td>1</td>
 <td>Y</td>
-<td>Số ví yêu cầu chuyển tiền đến.</td>
+<td>Phone Number receive money.</td>
 </tr>
 <tr>
 <td>Amount</td>
 <td>Long</td>
 <td>1</td>
 <td>Y</td>
-<td>Số tiền</td>
+<td>Amount money transferred</td>
 </tr>
 </tbody></table>
 
@@ -997,27 +990,27 @@
 <tr>
 <td>RequestId</td>
 <td>String</td>
-<td>Mã giao dịch duy nhất trên hệ thống đối tác do đối tác sinh ra</td>
+<td>The unique transaction code generated by the partner</td>
 </tr>
 <tr>
 <td>ResponseTime</td>
 <td>String</td>
-<td>Ngày giờ trả kết quả giao dịch: Format:  yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
+<td>Response time : Format:  yyyy-MM-dd&rsquo;T&#39;HH:mm:ss&#39;Z&rsquo;</td>
 </tr>
 <tr>
 <td>ReferenceId</td>
 <td>String</td>
-<td>Mã giao dịch duy nhất trên hệ thống của M_Service.</td>
+<td>The unique transaction code on the M_Service system.</td>
 </tr>
 <tr>
 <td>ResultCode</td>
 <td>Int</td>
-<td>Mã trả về. Được mô tả như trong phần phụ lục.</td>
+<td>Return code described as an appendix.</td>
 </tr>
 <tr>
 <td>Message</td>
 <td>String</td>
-<td>Mô tả chi tiết về ResultCode trả về.</td>
+<td>Detailed description of the ResultCode returned.</td>
 </tr>
 </tbody></table>
 
